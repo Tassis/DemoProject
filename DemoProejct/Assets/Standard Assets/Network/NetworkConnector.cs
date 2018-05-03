@@ -7,29 +7,17 @@ using DemoProtocol;
 
 public class NetworkConnector : MonoBehaviour {
 
-    public string serverIP;
-    public short port;
-    public string serverName = "";
+    public string serverIP = "localhost";
+    public short port = 4530;
+    public string serverName = "Demo";
 
-    private void Awake()
-    {
-        NetworkService.ConnectEvent += onConnectEvent;
-        
+    private void Start()
+    {   
+        Connect();
     }
 
     public void Connect()
     {
         NetworkService.instance.Connect(serverIP, port, serverName);
-     
-    }
-
-    public void Login()
-    {
-        NetworkService.instance.peer.OpCustom((byte)OperationCode.Login, new Dictionary<byte, object>(), true);
-    }
-
-    private void onConnectEvent(object sender, ConnectEventArgs e)
-    {
-        TLogger.DEBUG(e.isConnecting.ToString());
     }
 }

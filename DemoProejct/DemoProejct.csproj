@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{42386964-02AD-23F1-3E87-53448FD56098}</ProjectGuid>
+    <ProjectGuid>{3E3BCA71-3361-9455-EB17-5B15241B16F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -303,9 +303,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Demo Proejct.Plugins.csproj">
-      <Project>{E1E4B9DD-7BC6-1587-674A-7C95E02DBF4B}</Project>
-      <Name>Demo Proejct.Plugins</Name>
+    <ProjectReference Include="DemoProejct.Plugins.csproj">
+      <Project>{97DBA98E-4855-683B-4150-ADBAD04AC8BD}</Project>
+      <Name>DemoProejct.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

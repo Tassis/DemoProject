@@ -1,8 +1,16 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using TControls.Core;
+
+public class ConnectEventArgs : EventArgs
+{
+    public bool isConnecting;
+
+    public ConnectEventArgs(bool isConnecting)
+    {
+        this.isConnecting = isConnecting;
+    }
+}
 
 public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
 {
@@ -11,8 +19,6 @@ public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
     public string _DebugMessage { get; private set; }    // DebugMessage
 
     public static event EventHandler<ConnectEventArgs> ConnectEvent;
-
-
 
     public NetworkService()
     {
@@ -30,14 +36,22 @@ public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
             bool connected = this.peer.Connect(linkaddr, serverName);
             // try connect to server,  if not will call event.
             if (!connected)
-                ConnectEvent(this, new ConnectEventArgs(false));
+            {
+                if (ConnectEvent != null)
+                    ConnectEvent(this, new ConnectEventArgs(false));
+            }
             else
-                ConnectEvent(this, new ConnectEventArgs(true));
+            {
+                if (ConnectEvent != null)
+                    ConnectEvent(this, new ConnectEventArgs(true));
+            }
+
 
         }
         catch (Exception ex)
         {
-            ConnectEvent(this, new ConnectEventArgs(false));
+            if (ConnectEvent != null)
+             ConnectEvent(this, new ConnectEventArgs(false));
             throw ex;
         }
     }
@@ -82,7 +96,7 @@ public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
 
     public void OnOperationResponse(OperationResponse operationResponse)
     {
-        TLogger.DEBUG(operationResponse.DebugMessage.ToString());
+        NetworkRequest.instance.OnOperationResponse(operationResponse);
     }
 
     public void OnStatusChanged(StatusCode statusCode)
@@ -99,5 +113,10 @@ public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
                 IsConnected = false;
                 break;
         }
+    }
+
+    public bool CheckPeerConnected()
+    {
+        return peer.PeerState == PeerStateValue.Connected;
     }
 }
