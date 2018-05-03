@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using ExitGames.Logging;
 using ExitGames.Net;
-
 using Photon.SocketServer;
 using PhotonHostRuntimeInterfaces;
-
+using DemoApp.Actors;
 namespace DemoApp
 {
 
@@ -21,11 +20,19 @@ namespace DemoApp
         {
             peerGuid = Guid.NewGuid();
             _server = serverApp;
-          //  _server.actorManager.AddConenectPeer(peerGuid, this);
+
         }
 
         protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
         {
+            Actor actor = _server.actorManager.GetActorFromGuid(peerGuid);
+
+            if (actor.roomIndex >= 0)
+            {
+                // actor in room , must remove room's actor list.
+                
+            }
+            
             
         }
 

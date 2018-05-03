@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DemoProtocol;
+using DemoApp.Actors;
 using Photon.SocketServer;
 
 namespace DemoApp.Handlers
@@ -14,11 +15,33 @@ namespace DemoApp.Handlers
 
         public override void OnOperationRequest(OperationRequest operationRequest, SendParameters sendParameters, ServerPeer peer)
         {
-            OperationResponse response = new OperationResponse(operationRequest.OperationCode)
+            ActorRetune actorRet = ServerApp.instance.actorManager.GuestOnline(peer.peerGuid);
+
+            OperationResponse response = new OperationResponse(operationRequest.OperationCode);
+
+            response.ReturnCode = -1;
+            // Success
+            if (actorRet.ReturnCode == 0) 
             {
-                ReturnCode = (short)ResultCode.Success,
-                DebugMessage = "Test Sign-in",
-            };
+                response.ReturnCode = (short)ResultCode.Success;
+                response.DebugMessage = "Login Success.";
+                var parameter = new Dictionary<byte, object>()
+                {
+                    { (byte)ParameterCode.Username, actorRet.actorData.memberID }
+                };
+
+                response.Parameters = parameter;
+
+                ServerApp.instance.actorManager.AddConenectPeer(peer.peerGuid, peer);
+            }
+
+            // RepeatLogin
+            if (actorRet.ReturnCode == 2)
+            {
+                response.ReturnCode = (short)ResultCode.CustomError;
+                response.DebugMessage = "Your device repeat login.";
+
+            }
 
             peer.SendOperationResponse(response, sendParameters);
         }

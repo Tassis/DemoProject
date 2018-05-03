@@ -10,7 +10,7 @@ namespace DemoApp.Cells
         public CellManager()
         {
             cellMap = new Dictionary<string, CellBase>();
-            
+            ServerApp.Logger.Info("CellManager is inintialized");
         }
 
         public void RegisterCell(string name, CellBase cell)

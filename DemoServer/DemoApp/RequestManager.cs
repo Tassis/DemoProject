@@ -16,6 +16,7 @@ namespace DemoApp
         {
             requestDict = new Dictionary<OperationCode, BaseHandler>();
             InitialzeDict();
+            ServerApp.Logger.Info("RequestManager is inintialized");
         }
 
         private void InitialzeDict()

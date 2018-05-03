@@ -25,6 +25,7 @@ namespace DemoApp
         static ServerApp()
         {
             Logger = LogManager.GetCurrentClassLogger();
+
         }
 
         protected override PeerBase CreatePeer(InitRequest initRequest)
@@ -44,7 +45,7 @@ namespace DemoApp
              }
 
 
-
+            instance = this;
             // Setting base system.
             actorManager = new ActorManager();
             cellManager = new CellManager();
