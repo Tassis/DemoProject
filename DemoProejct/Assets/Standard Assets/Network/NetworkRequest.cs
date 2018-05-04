@@ -17,6 +17,7 @@ public class NetworkRequest : TSingleton<NetworkRequest>
     public void InitDict()
     {
         requestDic.Add(OperationCode.Login, new LoginRequest());
+        requestDic.Add(OperationCode.CreateRoom, new CreateRoomRequest());
     }
 
     public void OnOperationResponse(OperationResponse operationResponse)

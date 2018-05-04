@@ -301,6 +301,9 @@
     <Reference Include="Photon3Unity3D">
       <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>Assets\Plugins\protobuf-net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DemoProejct.Plugins.csproj">
@@ -309,8 +312,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\InitKit.cs" />
+    <Compile Include="Assets\Animation\Loading\Scripts\AnimationShadyQuit.cs" />
+    <Compile Include="Assets\Scripts\CommonUtils.cs" />
+    <Compile Include="Assets\Scripts\InitKit.cs" />
+    <Compile Include="Assets\Scripts\LobbyFunction.cs" />
+    <Compile Include="Assets\Scripts\SceneHandler.cs" />
     <Compile Include="Assets\Scripts\Title\TitleCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Plugins\protobuf-net.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

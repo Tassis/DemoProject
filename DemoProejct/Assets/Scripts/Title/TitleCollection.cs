@@ -15,7 +15,6 @@ public class TitleCollection : MonoBehaviour{
 
     private void Awake()
     {
-        connector = GetComponent<NetworkConnector>();
         LoginRequest.LoginEvent += OnLoginEvent;
     }
 
@@ -45,6 +44,8 @@ public class TitleCollection : MonoBehaviour{
         if (e.returnCode == (short)ResultCode.Success)
         {
             TLogger.INFO("Login Success. username: " + e.username);
+
+            SceneHandler.instance.LoadScene("Lobby", false, false);
             return;
         }
         string msg = string.Format("Login Failed, {0}", e.debugMessage);

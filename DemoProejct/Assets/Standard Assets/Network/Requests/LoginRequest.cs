@@ -35,6 +35,8 @@ public class LoginRequest : RequestBase
             args.username = operationResponse.Parameters[(byte)ParameterCode.Username] as string;
         }
 
+        NetworkRecord.Username = args.username;
+
         if (LoginEvent != null)
             LoginEvent(this, args);
 

@@ -301,18 +301,26 @@
     <Reference Include="Photon3Unity3D">
       <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>Assets\Plugins\protobuf-net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Standard Assets\Network\NetworkCallService.cs" />
     <Compile Include="Assets\Standard Assets\Network\NetworkConnector.cs" />
+    <Compile Include="Assets\Standard Assets\Network\NetworkRecord.cs" />
     <Compile Include="Assets\Standard Assets\Network\NetworkRequest.cs" />
     <Compile Include="Assets\Standard Assets\Network\NetworkService.cs" />
+    <Compile Include="Assets\Standard Assets\Network\Requests\CreateRoomRequest.cs" />
     <Compile Include="Assets\Standard Assets\Network\Requests\LoginRequest.cs" />
     <Compile Include="Assets\Standard Assets\Network\Requests\RequestBase.cs" />
     <Compile Include="Assets\Standard Assets\TControls\Core\TLogger.cs" />
     <Compile Include="Assets\Standard Assets\TControls\Core\TSingleton.cs" />
     <Compile Include="Assets\Standard Assets\TControls\Core\TStaticHelper.cs" />
     <Compile Include="Assets\Standard Assets\TControls\LoggerKit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Plugins\protobuf-net.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
