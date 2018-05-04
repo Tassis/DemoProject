@@ -23,7 +23,7 @@ namespace DemoApp
         {
             requestDict.Add(OperationCode.Default, new DefaultHandler());
             requestDict.Add(OperationCode.Login, new LoginHandler());
-
+            requestDict.Add(OperationCode.CreateRoom, new CreateRoomHandler());
         }
 
         public void OnOperationRequest(OperationRequest operationRequest, SendParameters sendParameters, ServerPeer peer)

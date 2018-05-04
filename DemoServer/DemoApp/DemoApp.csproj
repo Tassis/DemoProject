@@ -60,11 +60,12 @@
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\ActorManager.cs" />
-    <Compile Include="Cells\CellBase.cs" />
-    <Compile Include="Cells\Item\Lobby.cs" />
+    <Compile Include="Cells\CellLobby.cs" />
     <Compile Include="Cells\CellManager.cs" />
-    <Compile Include="EventManager.cs" />
+    <Compile Include="Cells\CellRoom.cs" />
+    <Compile Include="Events\RoomUpdateEvent.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
+    <Compile Include="Handlers\CreateRoomHandler.cs" />
     <Compile Include="Handlers\DefaultHandler.cs" />
     <Compile Include="Handlers\LoginHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="ServerPeer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Events\" />
     <Folder Include="Threads\" />
   </ItemGroup>
   <ItemGroup>

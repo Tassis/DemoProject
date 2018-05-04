@@ -27,7 +27,7 @@ namespace DemoApp.Actors
             this.GuidMemberID = new Dictionary<Guid, string>();
             this.MemberIDActor = new Dictionary<string, Actor>();
 
-            ServerApp.Logger.Info("ActorManager is inintialized");
+            ServerApp.Logger.Info("[ActorManager] inintialized");
         }
 
    
@@ -35,7 +35,11 @@ namespace DemoApp.Actors
         public void AddConenectPeer( Guid guid, ServerPeer peer )
         {
             if (!ConnectedClients.ContainsKey(guid))
+            {
                 ConnectedClients.Add(guid, peer);
+                ServerApp.Logger.Info("[ActorManager]Add peer linked. " + guid);
+            }
+
         }
 
         // try get peer from guid.
@@ -60,7 +64,7 @@ namespace DemoApp.Actors
         {
             if (!GuidMemberID.ContainsKey(guid))
             {
-                ServerApp.Logger.Error("Not found actor by guid.");
+                ServerApp.Logger.Error("[ActorManager] Not found actor by guid.");
                 return null;
             }
 
@@ -73,7 +77,7 @@ namespace DemoApp.Actors
         {
             if (!MemberIDActor.ContainsKey(memberID))
             {
-                ServerApp.Logger.ErrorFormat("Not found any actor by memberID {0}", memberID);
+                ServerApp.Logger.ErrorFormat("[ActorManager] Not found any actor by memberID {0}", memberID);
                 return null;
             }
 
@@ -101,8 +105,13 @@ namespace DemoApp.Actors
 
                 // if normal login, register dictionary and retune.
                 Actor guestActor = CreateGuestProfile(guid);
+
                 if (!GuidMemberID.ContainsKey(guid))
+                {
                     GuidMemberID.Add(guid, guestActor.memberID);
+                    ServerApp.Logger.InfoFormat("[ActorManager] Guid list add key: {0}", guid);
+                }
+
 
                 if (!MemberIDActor.ContainsKey(guestActor.memberID))
                     MemberIDActor.Add(guestActor.memberID, guestActor);
@@ -114,7 +123,6 @@ namespace DemoApp.Actors
 
             return actorRtn;
         }
-
         public void ActorOffline(Guid guid)
         {
             lock(this)

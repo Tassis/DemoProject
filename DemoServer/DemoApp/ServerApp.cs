@@ -20,7 +20,6 @@ namespace DemoApp
         public CellManager cellManager;
 
         public RequestManager requestManager;
-        public EventManager eventManager;
 
         static ServerApp()
         {
@@ -50,7 +49,6 @@ namespace DemoApp
             actorManager = new ActorManager();
             cellManager = new CellManager();
             requestManager = new RequestManager();
-            eventManager = new EventManager();
 
             Logger.Info("Server Setup Successful.......");
         }
