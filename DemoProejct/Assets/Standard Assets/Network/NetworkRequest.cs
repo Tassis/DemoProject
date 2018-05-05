@@ -18,6 +18,8 @@ public class NetworkRequest : TSingleton<NetworkRequest>
     {
         requestDic.Add(OperationCode.Login, new LoginRequest());
         requestDic.Add(OperationCode.CreateRoom, new CreateRoomRequest());
+        requestDic.Add(OperationCode.JoinRoom, new JoinRoomRequest());
+        requestDic.Add(OperationCode.ReadySwitch, new ReadySwitchRequest());
     }
 
     public void OnOperationResponse(OperationResponse operationResponse)

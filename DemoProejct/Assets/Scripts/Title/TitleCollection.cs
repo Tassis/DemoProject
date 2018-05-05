@@ -18,6 +18,11 @@ public class TitleCollection : MonoBehaviour{
         LoginRequest.LoginEvent += OnLoginEvent;
     }
 
+    private void OnDestroy()
+    {
+        LoginRequest.LoginEvent -= OnLoginEvent;
+    }
+
     public void TitleEnter()
     {
         if (NetworkService.instance.CheckPeerConnected() && canClick)

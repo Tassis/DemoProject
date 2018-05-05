@@ -5,11 +5,8 @@ using ExitGames.Client.Photon;
 using DemoProtocol;
 
 
-public class CreateRoomEventArgs : EventArgs
-{
-    public short returnCode { get; set; }
-    public string debugMessage { get; set; }
-}
+public class CreateRoomEventArgs : BaseRequestEventArgs
+{ }
 
 public class CreateRoomRequest : RequestBase
 {
@@ -24,12 +21,9 @@ public class CreateRoomRequest : RequestBase
     public override void OnOperationResponse(OperationResponse operationResponse)
     {
         CreateRoomEventArgs args = new CreateRoomEventArgs();
-        args.debugMessage = operationResponse.DebugMessage;
 
-        if (operationResponse.ReturnCode == (short)ResultCode.Success)
-            args.returnCode = (short)ResultCode.Success;
-        else
-            args.returnCode = (short)ResultCode.Failed;
+        args.returnCode = operationResponse.ReturnCode;
+        args.debugMessage = operationResponse.DebugMessage;
 
         if (CreateRoomEvent != null)
             CreateRoomEvent(this, args);

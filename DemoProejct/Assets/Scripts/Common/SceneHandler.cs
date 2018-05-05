@@ -15,6 +15,8 @@ public class SceneHandler : MonoBehaviour
     [SerializeField]  private Sprite[] loadingPics;
     [SerializeField]  private Text waitString;
 
+    private AsyncOperation async;
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -23,7 +25,7 @@ public class SceneHandler : MonoBehaviour
     private void Start()
     {
         instance = this;
-
+        GameEnterHandler.EnterGameEvent += OnEnterGameEvent;
     }
 
     public void LoadScene(string sceneName, bool isDirt, bool isWaitEvent)
@@ -59,7 +61,7 @@ public class SceneHandler : MonoBehaviour
         float effectVar = 0; float previousVar = 0;
 
         // Setting AsyncLoad.
-        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
+        async = SceneManager.LoadSceneAsync(sceneName);
         async.allowSceneActivation = false;
 
         // Enter loop for check loading process rate.
@@ -100,11 +102,21 @@ public class SceneHandler : MonoBehaviour
             barArticle.fillAmount = 0.0f;
             bar.gameObject.SetActive(false);
             waitString.gameObject.SetActive(true);
-            /*
-                push loading finish request. 
-            */
+
+            var request = new LoadingFinishRequest();
+            request.SendRequest();
+            
+            
         }
         yield return null;
+    }
+
+    private void OnEnterGameEvent(object sender, EventArgs e)
+    {
+        CommonUtils.instance.SwitchViewMask(false);
+        shady.SetTrigger("transfer");
+        waitString.gameObject.SetActive(false);
+        async.allowSceneActivation = true;
     }
 
 

@@ -15,8 +15,10 @@ public class ConnectEventArgs : EventArgs
 public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
 {
     public PhotonPeer peer;                             // Peer Channel
+    public NetworkEvent eventHandler;                   // Event Handelr 
     public bool IsConnected { get; private set; }        // ConnectState
     public string _DebugMessage { get; private set; }    // DebugMessage
+
 
     public static event EventHandler<ConnectEventArgs> ConnectEvent;
 
@@ -25,6 +27,7 @@ public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
         // Initialize Variable.
         peer = null;
         IsConnected = false;
+        eventHandler = new NetworkEvent();
     }
 
     public void Connect(string ipaddr, short port, string serverName)
@@ -91,7 +94,8 @@ public class NetworkService : TSingleton<NetworkService>, IPhotonPeerListener
 
     public void OnEvent(EventData eventData)
     {
-        throw new NotImplementedException();
+        eventHandler.OnEvent((DemoProtocol.EventCode)eventData.Code, eventData.Parameters);
+
     }
 
     public void OnOperationResponse(OperationResponse operationResponse)

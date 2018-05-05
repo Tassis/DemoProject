@@ -5,12 +5,9 @@ using DemoProtocol;
 using DemoProtocol.Tools;
 using TControls.Core;
 
-public class LoginEventArgs : EventArgs
+public class LoginEventArgs : BaseRequestEventArgs
 {
-    public short returnCode { get; set; }
-    public string debugMessage { get; set; }
-    public string username { get;  set; }
-
+    public string username { get; set; }
 }
 
 public class LoginRequest : RequestBase
