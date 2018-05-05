@@ -2,6 +2,8 @@
 {
     public enum EventCode :byte
     {
-        RoomUpdateEvent = 3,
+        RoomUpdate = 3,
+        GameStart = 4,
+        GameEnter =5,
     }
 }

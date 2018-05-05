@@ -22,10 +22,19 @@ namespace DemoApp.Cells
         }
 
 
-        public CellRoom GetRoom(int cellIndex)
+        public CellRoom TryGetRoomByIndex(int cellIndex)
         {
             return RoomList[cellIndex];
         }
+        
+        public CellRoom TryGetRoomBySerial(string serial)
+        {
+            if (RoomMap.ContainsKey(serial))
+                return RoomMap[serial];
+            else
+                return null;
+        }
+        
 
         public int GetCellIndex(CellRoom cell)
         {

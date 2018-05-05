@@ -16,7 +16,7 @@ namespace DemoApp.Cells
         public List<ActorInfo> actorList { get;  private set;}
         public int Limit { get; private set; }
         public bool isPlay { get; private set; }
-
+        public int finishCount;
 
         public CellRoom(string serialNum, string hostName,int limit = 2)
         {
@@ -25,9 +25,8 @@ namespace DemoApp.Cells
             this.actorList = new List<ActorInfo>(limit);
             this.Limit = limit;
             this.isPlay = false;
+            this.finishCount = 0;
         }
-
-
 
         public bool Join(string memberID)
         {
@@ -53,6 +52,8 @@ namespace DemoApp.Cells
                 // Change actor's roomIndex.
                 Actor actor = ServerApp.instance.actorManager.GetActorFromMemberID(memberID);
                 actor.roomIndex = (short)ServerApp.instance.cellManager.GetCellIndex(this);
+                // Update RoomInfo.
+                CheckStatus();
                 return true;
             }
         }
@@ -62,6 +63,19 @@ namespace DemoApp.Cells
             {
                 if (actorList[i].memberID == memberID)
                     actorList.RemoveAt(i);
+            }
+
+            CheckStatus();
+        }
+
+        public void ChangeReady(Guid guid)
+        {
+            Actor actor = ServerApp.instance.actorManager.GetActorFromGuid(guid);
+            
+            foreach (ActorInfo t in actorList)
+            {
+                if (t.memberID == actor.memberID)
+                    t.isReady = !t.isReady;
             }
 
             CheckStatus();
@@ -79,8 +93,27 @@ namespace DemoApp.Cells
             }
 
             RoomUpdateEvent.SendEvent(this);
+
+            if (actorList.Count == Limit)
+            {
+                foreach (ActorInfo t in actorList)
+                {
+                    if (!t.isReady)
+                        return;
+                }
+                GameStartEvent.SendEvent(this);
+            }
         }
 
+        public void AddFinishCounter()
+        {
+            this.finishCount++;
+
+            if (finishCount >= Limit)
+            {
+                EnterGameEvent.SendEvent(this);
+            }
+        }
 
         public class ActorInfo
         {

@@ -24,6 +24,9 @@ namespace DemoApp
             requestDict.Add(OperationCode.Default, new DefaultHandler());
             requestDict.Add(OperationCode.Login, new LoginHandler());
             requestDict.Add(OperationCode.CreateRoom, new CreateRoomHandler());
+            requestDict.Add(OperationCode.JoinRoom, new JoinRoomHandler());
+            requestDict.Add(OperationCode.ReadySwitch, new ReadySwitchHandler());
+            requestDict.Add(OperationCode.LoadingFinish, new LoadingFinishHandler());
         }
 
         public void OnOperationRequest(OperationRequest operationRequest, SendParameters sendParameters, ServerPeer peer)

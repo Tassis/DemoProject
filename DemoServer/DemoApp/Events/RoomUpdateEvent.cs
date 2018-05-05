@@ -32,6 +32,9 @@ namespace DemoApp.Events
 
             // Serialize roominfodata.
             byte[] roomInfoDataByte = ProtoBufTool.Serialize(roomData);
+            RoomInfoData testData = ProtoBufTool.Deserialize<RoomInfoData>(roomInfoDataByte);
+
+            ServerApp.Logger.Info(testData.serial);
 
             // push data to actors
             for (int i = 0; i < actorList.Count; i++)
@@ -44,16 +47,11 @@ namespace DemoApp.Events
                 var eventDict = new Dictionary<byte, object>();
                 eventDict.Add((byte)ParameterCode.RoomInfoData, roomInfoDataByte);
 
-                EventData eventData = new EventData((byte)EventCode.RoomUpdateEvent);
+                EventData eventData = new EventData((byte)EventCode.RoomUpdate);
                 eventData.Parameters = eventDict;
 
                 peer.SendEvent(eventData, new SendParameters());
-                   
             }
-
-
-
-
         }
     }
 }

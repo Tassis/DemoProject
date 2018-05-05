@@ -30,7 +30,7 @@ namespace DemoApp
             if (actor.roomIndex >= 0)
             {
                 // actor in room , must remove from room's actor list.
-                CellRoom room = ServerApp.instance.cellManager.GetRoom(actor.roomIndex);
+                CellRoom room = ServerApp.instance.cellManager.TryGetRoomByIndex(actor.roomIndex);
                 room.Quit(actor.memberID);
             }
             else if (actor.roomIndex == -1)

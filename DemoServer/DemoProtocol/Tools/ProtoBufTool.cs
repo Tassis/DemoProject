@@ -19,7 +19,7 @@ namespace DemoProtocol.Tools
                 var fullbyte = ms.GetBuffer();  // get bytes from memory stream.
                 Array.Copy(fullbyte, bytes, bytes.Length);
             }
-            return null;
+            return bytes;
         }
 
         public static T Deserialize<T>(byte[] bytes)
